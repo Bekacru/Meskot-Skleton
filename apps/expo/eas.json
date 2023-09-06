@@ -1,0 +1,34 @@
+{
+    "cli": {
+      "version": ">= 3.3.0"
+    },
+    "build": {
+      "base": {
+        "node": "18.16.1",
+        "ios": {
+          "resourceClass": "m-medium"
+        }
+      },
+      "development": {
+        "extends": "base",
+        "developmentClient": true,
+        "distribution": "internal"
+      },
+      "preview": {
+        "extends": "base",
+        "distribution": "internal",
+        "ios": {
+          "simulator": true
+        }
+      },
+      "production": {
+        "extends": "base",
+        "env": {
+          "EXPO_PUBLIC_API_URL": "https://api.production.com"
+        }
+      }
+    },
+    "submit": {
+      "production": {}
+    }
+  }
