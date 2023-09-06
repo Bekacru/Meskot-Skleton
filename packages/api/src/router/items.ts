@@ -1,9 +1,8 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const itemRouter = createTRPCRouter({
-    all: publicProcedure.query(async({ ctx }) => {
-        console.log("input")
+    all:publicProcedure.query(async({ctx})=>{
         return await ctx.prisma.items.findMany()
     }),
     byId: publicProcedure
@@ -31,7 +30,4 @@ export const itemRouter = createTRPCRouter({
                 }
             })
         }),
-    delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-        return ctx.prisma.items.delete({ where: { id: input } })
-    }),
 });

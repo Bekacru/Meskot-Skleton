@@ -1,15 +1,10 @@
 <script lang="ts">
     import { page } from '$app/stores';
     import { trpc } from '$lib/trpc/client';
-    import type { Items } from '@meskot/db';  
 
-    let greeting: Items[] | null  = null;
-    let loading = false;
-    let error = ""
     let name = ""
     let price = 0
     let qty = 0
-
     const query = trpc($page).item.all.createQuery()
     const m = trpc($page).item.create.createMutation({
         onError(error, variables, context) {
@@ -17,23 +12,23 @@
         },
     })
 </script>
-
-<h6>Loading data in<br /><code>+page.svelte</code></h6>
-
-<a href="#load" role="button" class="secondary" aria-busy={loading}>Load</a>
-
-<p>{greeting}</p>
 <div>
-  {#if $query.isLoading}
+  <div>
+    {#if $query.isLoading}
     Loading...
-  {:else if $query.isError}
-    {$query.error.message}
-  {:else if $query.data}
-    {JSON.stringify($query.data)}
-  {/if}
-  <input placeholder="Item Name" bind:value={name} />
-  <input placeholder="Item Qty" bind:value={qty} />
-  <input placeholder="Item Price" bind:value={price} />
+    {:else if $query.isError}
+      {$query.error.message}
+    {:else if $query.data}
+     <pre>
+      {JSON.stringify($query.data)}
+     </pre>
+    {/if}
+  </div>
+  <div>
+    <input placeholder="Item Name" bind:value={name} />
+    <input placeholder="Item Qty" bind:value={qty} />
+    <input placeholder="Item Price" bind:value={price} />
+  </div>
   <button
     on:click={() =>
       $m.mutate({

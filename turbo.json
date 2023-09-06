@@ -1,6 +1,5 @@
 {
     "$schema": "https://turborepo.org/schema.json",
-    "globalDependencies": ["**/.env"],
     "pipeline": {
       "topo": {
         "dependsOn": ["^topo"]
@@ -27,12 +26,6 @@
       },
       "clean": {
         "cache": false
-      },
-      "//#clean": {
-        "cache": false
       }
-    },
-    "globalEnv": [
-      "DATABASE_URL"
-    ]
+    }
   }
